@@ -1,0 +1,35 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: kube-practices
+servers: 1
+agents: 2
+# ports:
+#   - port: 30080:80
+#     nodeFilters:
+#       - server:0
+#   - port: 30443:443
+#     nodeFilters:
+#       - server:0
+#   - port: 38080:8080
+#     nodeFilters:
+#       - server:0
+#   - port: 33000:3000
+#     nodeFilters:
+#       - server:0
+#   - port: 35000:5000
+#     nodeFilters:
+#       - server:0
+registries:
+  create:
+    name: k3d-registry
+    host: "0.0.0.0"
+    hostPort: "5000"
+  config: |
+    mirrors:
+      "localhost:5000":
+        endpoint:
+          - "http://k3d-registry:5000"
+      "docker.io":
+        endpoint:
+          - "https://registry.easylearning.vip"

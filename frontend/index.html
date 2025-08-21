@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes GitOps Learning Frontend</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #495057;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .info-value {
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 8px;
+            word-break: break-all;
+            font-size: 0.9em;
+            color: #2c3e50;
+        }
+        
+        .status {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .timestamp {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .refresh-btn:hover {
+            background: #5a6fd8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1>Kubernetes GitOps Frontend</h1>
+        
+        <div class="status">
+            ✅ Application is running successfully!
+        </div>
+        
+        <div class="info-card">
+            <div class="info-label">Pod Name:</div>
+            <div class="info-value" id="pod-name">Loading...</div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-label">Container Image:</div>
+            <div class="info-value" id="container-image">Loading...</div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-label">Node Name:</div>
+            <div class="info-value" id="node-name">Loading...</div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-label">Namespace:</div>
+            <div class="info-value" id="namespace">Loading...</div>
+        </div>
+        
+        <button class="refresh-btn" onclick="loadPodInfo()">🔄 Refresh Info</button>
+        
+        <div class="timestamp" id="last-updated">
+            Last updated: <span id="update-time">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        // Function to load pod information from environment variables
+        function loadPodInfo() {
+            // Update timestamp
+            document.getElementById('update-time').textContent = new Date().toLocaleString();
+            
+            // In a real Kubernetes environment, these would be injected via environment variables
+            // For now, we'll use placeholder values that will be replaced by actual env vars
+            const podInfo = {
+                podName: '${POD_NAME}' || 'frontend-pod-unknown',
+                containerImage: '${CONTAINER_IMAGE}' || 'frontend-image-unknown',
+                nodeName: '${NODE_NAME}' || 'k3d-node-unknown',
+                namespace: '${POD_NAMESPACE}' || 'frontend-namespace-unknown'
+            };
+            
+            // Update the DOM elements
+            document.getElementById('pod-name').textContent = podInfo.podName;
+            document.getElementById('container-image').textContent = podInfo.containerImage;
+            document.getElementById('node-name').textContent = podInfo.nodeName;
+            document.getElementById('namespace').textContent = podInfo.namespace;
+        }
+        
+        // Load pod info when page loads
+        document.addEventListener('DOMContentLoaded', loadPodInfo);
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadPodInfo, 30000);
+    </script>
+</body>
+</html>

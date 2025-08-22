@@ -19,12 +19,12 @@ jobs:
         with:
           registry: docker.cnb.cool
           username: cnb
-          password: ${{ secrets.DOCKER_CNB_PASSWORD }}  # 仓库密码/令牌(需在GitHub Secrets配置)
+          password: ${{ secrets.DOCKER_CNB_TOKEN }}  # 仓库密码/令牌(需在GitHub Secrets配置)
 
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./frontend/Dockerfile  # Dockerfile路径
+          context: ./frontend
+          file: Dockerfile  # Dockerfile路径
           push: true
-          tags: docker.cnb.cool/elmleung/kube-gitops/frontend:v2.0.0  # 将CNB组织名替换为实际的组织名
+          tags: docker.cnb.cool/${{ env.CNB_ORG }}/kube-gitops/frontend:v2.0.0  # 将CNB组织名替换为实际的组织名

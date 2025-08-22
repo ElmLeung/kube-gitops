@@ -1,10 +1,8 @@
+# 分支名
 main:
+  # 事件名
   push:
-    - services:
-        - docker
-      stages:
-        # 非同名镜像构建&推送
-        - name: docker build
-          script: docker build -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}/frontend-app:v1.0.0 -f frontend/Dockerfile .
-        - name: docker push
-          script: docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}/frontend-app:v1.0.0
+    # 要执行的任务
+    - stages:
+        - name: echo
+          script: echo "hello world"

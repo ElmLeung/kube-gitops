@@ -27,4 +27,4 @@ jobs:
           context: ./frontend
           file: Dockerfile  # Dockerfile路径
           push: true
-          tags: docker.cnb.cool/${{ env.CNB_ORG }}/kube-gitops/frontend:v2.0.0  # 将CNB组织名替换为实际的组织名
+          tags: docker.cnb.cool/${{ vars.CNB_ORG }}/kube-gitops/frontend:v2.0.0  # 将CNB组织名替换为实际的组织名

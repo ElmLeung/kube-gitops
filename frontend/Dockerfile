@@ -11,10 +11,10 @@ RUN apk add --no-cache gettext
 RUN rm /etc/nginx/nginx.conf
 
 # Copy custom nginx configuration
-COPY frontend/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy HTML template
-COPY frontend/index.html /app/index.html.template
+COPY index.html /app/index.html.template
 
 # Create entrypoint script and set up permissions for non-root user
 RUN echo '#!/bin/sh' > /app/entrypoint.sh && \

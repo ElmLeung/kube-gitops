@@ -24,7 +24,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./frontend/Dockerfile  # Dockerfile路径
+          context: ./frontend
+          file: Dockerfile  # Dockerfile路径
           push: true
           tags: docker.cnb.cool/${{ vars.CNB_ORG }}/kube-gitops/frontend:v2.0.0  # 将CNB组织名替换为实际的组织名
